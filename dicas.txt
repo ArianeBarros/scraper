@@ -1,0 +1,60 @@
+>> 1 Dica <<
+Estudar a estrutura do site que tem as informações que vc quer
+obter (como as informações são apresentadas e organizadas)
+HTML - (agente explorador de como está a organização do HTML e do conteúdo).
+
+>> 2 Dica <<
+Observar os pedaços em linguagem HTML que contem a informacao que vc deseja
+Exemplo:
+
+<div class="brandLine">
+    <a href="Brand-detail.aspx?brandID=8025" class="list">
+        <span class="rankingName">M Classic</span>
+    </a>
+</div>
+
+"o conteúdo que eu quero é a marca... e marca está dentro de um span que
+está dentro de um link, que está dentro de um div."
+observe que tem estilos na linguagem CSS (que os define)
+class (classe CSS que define um estilo).
+
+>> 3 dica <<
+O agente inteligente (crawler) é esperto para buscar conteúdos na web
+que estão dentro de um elemento html que tem classe!
+exemplo:
+<span class="rankingName">M Classic</span>
+CLASSE DE ESTILOS chamada rankingName...
+(isso aqui é o ponto de referencia onde o agente vai buscar a informação).
+
+>> 4 dica <<
+Descobrir como funciona a organização da informação
+através dos links que o agente inteligente precisa visitar.
+No nosso caso observamos que basta mudar a letra do final
+e o link abre a página da lista de marcas organizadas
+alfabeticamente por aquela letra...
+Exemplo:
+https://www.rankingthebrands.com/
+The-Brands-and-their-Rankings.aspx?catFilter=0&nameFilter=M
+
+M = nameFilter=M
+A = nameFilter=A
+Portanto se eu variar de A até Z eu consigo acessar todas as listas
+de marcas, e "obtê-las"
+
+>> 5 dica <<
+Se eu passar para o agente inteligente:
+Lista dos links que ele PRECISA VISITAR;
+E ONDE está a informação NA PÁGINA, ele consegue obter os dados.
+
+>> 6 dica <<
+Não precisamos construir um algoritmo complexo hoje dia para fazer
+a análise sintática / léxica para obter os dados. Na atualidade
+em Python temos muitas bibliotecas capazes de fazer isso.
+Uma delas é a scrapy (scrapy.org - visite o site para ler mais).
+
+>> 7 dica <<
+O scrapy funciona com o que chamamos de Spider (que é o agente)
+Construimos spider a partir de um modelo.
+Este modelo é:
+Conjunto de links para visitar
+e "estilos CSS para procurar a informação."
