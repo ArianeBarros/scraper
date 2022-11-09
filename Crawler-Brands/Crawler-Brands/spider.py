@@ -1,6 +1,5 @@
 import scrapy
 import json
-import base64
 
 
 def urls_brands():
@@ -21,21 +20,16 @@ def write_results(brands):
 
 class BrandsSpider(scrapy.Spider):
     name = 'brands'
-    start_urls = ["https://www.mercadolivre.com.br/c/celulares-e-telefones#menu=categories"]
+    start_urls = urls_brands()
     # esta sera a lista de marcas depois do agente ter feito o trabalho.
     brands = list()
 
 
-    custom_settings = {
-        'USER_AGENT': 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
-    }
-
     def parse(self, response):
-         for e in response.css('#special'):
-            brand_to_write = e.css('h3::text').get()
-            img_url = e.css('img::attr(src)').get()
-            self.brands.append({'name': brand_to_write, 'url': img_url})
-            yield {'name': brand_to_write, 'url': img_url}
-       
+        for e in response.css('.rankingName'):
+            brand_to_write = e.css('::text').get()
+            self.brands.append({'name': brand_to_write})
+            yield {'name': brand_to_write}
+
     def close(self, reason):
         write_results(self.brands)
