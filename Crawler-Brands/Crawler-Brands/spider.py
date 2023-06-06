@@ -14,7 +14,7 @@ def urls_brands():
 def write_results(brands):
     sorted_brands = sorted(brands, key=lambda d: d['name'])
     jsonstring = json.dumps(sorted_brands)
-    output_file = open('marcas.json', 'w')
+    output_file = open('marcas.json', 'a')
     output_file.write(jsonstring)
     output_file.close()
 
@@ -24,9 +24,10 @@ class BrandsSpider(scrapy.Spider):
     # esta sera a lista de marcas depois do agente ter feito o trabalho.
     brands = list()
 
-
     def parse(self, response):
+        print("oi")
         for e in response.css('.rankingName'):
+            print("oiS")
             brand_to_write = e.css('::text').get()
             self.brands.append({'name': brand_to_write})
             yield {'name': brand_to_write}
