@@ -1,7 +1,8 @@
 import scrapy
 import json
 import base64
-
+from myclient import MyDB
+from myclient import Brand
 
 def urls_brands():
     base_url = 'https://www.rankingthebrands.com/The-Brands-and-their-Rankings.aspx?catFilter=0&nameFilter='
@@ -24,7 +25,7 @@ class BrandsSpider(scrapy.Spider):
     start_urls = ["https://www.mercadolivre.com.br/c/celulares-e-telefones#menu=categories"]
     # esta sera a lista de marcas depois do agente ter feito o trabalho.
     brands = list()
-
+    db = MyDB()
 
     custom_settings = {
         'USER_AGENT': 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
@@ -35,7 +36,8 @@ class BrandsSpider(scrapy.Spider):
             brand_to_write = e.css('h3::text').get()
             img_url = e.css('img::attr(src)').get()
             self.brands.append({'name': brand_to_write, 'url': img_url})
-            yield {'name': brand_to_write, 'url': img_url}
-       
+            #yield {brand}
+    
     def close(self, reason):
         write_results(self.brands)
+        
