@@ -13,7 +13,7 @@ class MyDB:
         self.conn = self.connect()
 
     def connect(self):
-        return MongoClient('mongodb+srv://arianepaulabarros:senha123@cluster0.n0vuy8b.mongodb.net/')['db']
+        return MongoClient('mongodb+srv://<user>:<password>@cluster0.n0vuy8b.mongodb.net/')['db']
     
     def addBrands (self, brand):
         if not self.conn.client:
